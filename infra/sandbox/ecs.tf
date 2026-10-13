@@ -22,8 +22,8 @@ locals {
   all_env = {
     AWS_REGION       = var.region
     ORDERS_TABLE     = aws_dynamodb_table.orders.name
-    QUEUE_URL        = local.queue_url             # where the API sends new orders
-    WORKER_QUEUE_URL = aws_sqs_queue.orders.url    # where the in-process worker polls
+    QUEUE_URL        = local.queue_url          # where the API sends new orders
+    WORKER_QUEUE_URL = aws_sqs_queue.orders.url # where the in-process worker polls
     PORT             = tostring(var.app_listen_port)
     WORK_SECONDS     = tostring(var.work_seconds)
     FAULT_MODE       = var.fault_mode
