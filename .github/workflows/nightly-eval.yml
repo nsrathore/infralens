@@ -1,0 +1,59 @@
+name: nightly-eval
+
+# Disabled until week 7, when the sandbox apply/destroy role exists. Runs a small, cheap subset:
+# 4 scenarios (one easy, two medium, one control) x 1 trial, then destroys the sandbox.
+on:
+  workflow_dispatch:
+    inputs:
+      scenarios:
+        description: Space-separated scenario ids
+        default: bad-image-tag wrong-health-check-path task-role-missing-dynamodb-write control-healthy
+  # schedule:
+  #   - cron: "17 8 * * *"   # 03:17 Chicago (CDT); off-peak, odd minute
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: sandbox
+  cancel-in-progress: false
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: astral-sh/setup-uv@v6
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.EVAL_ROLE_ARN }}
+          aws-region: us-east-2
+
+      - run: dotnet publish src/InfraLens.Server -c Release -o out/server
+      - run: terraform -chdir=infra/sandbox init -backend-config="bucket=${{ vars.STATE_BUCKET }}"
+      - run: ./scripts/push-image.sh
+
+      - name: Run benchmark subset
+        working-directory: eval
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          INFRALENS_SERVER: dotnet ${{ github.workspace }}/out/server/infralens.dll
+        run: uv run infralens-eval run ${{ inputs.scenarios }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-results
+          path: eval/results/
+
+      - name: Tear down (always)
+        if: always()
+        run: terraform -chdir=infra/sandbox destroy -auto-approve -input=false

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/InfraLens.Server/InfraLens.Server.csproj" />
+  </Folder>
+  <Folder Name="/sandbox/">
+    <Project Path="sandbox/app/Sandbox.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/InfraLens.Server.Tests/InfraLens.Server.Tests.csproj" />
+  </Folder>
+</Solution>

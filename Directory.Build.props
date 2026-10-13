@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <!-- Turn on once the first build is green (week 1, day 1). -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <!-- Package versions below are minimums; a newer patch resolving is fine. -->
+    <NoWarn>$(NoWarn);NU1603</NoWarn>
+  </PropertyGroup>
+</Project>

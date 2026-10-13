@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet restore   # switch to --locked-mode once packages.lock.json files are committed
+      - run: dotnet build --no-restore -c Release
+      - run: dotnet test --no-build -c Release
+
+  python:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: eval
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run pytest -q
+      - run: uv run infralens-eval catalog-md --check
+
+  terraform:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        stack: [bootstrap, iam, sandbox]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform fmt -check -recursive
+        working-directory: infra/${{ matrix.stack }}
+      - run: terraform init -backend=false
+        working-directory: infra/${{ matrix.stack }}
+      - run: terraform validate
+        working-directory: infra/${{ matrix.stack }}
+
+  # Week 2: add `terraform plan` on PRs touching infra/, via the infralens-ci-plan OIDC role:
+  #   permissions: { id-token: write, contents: read }
+  #   - uses: aws-actions/configure-aws-credentials@v4
+  #     with: { role-to-assume: ${{ vars.CI_PLAN_ROLE_ARN }}, aws-region: us-east-2 }
