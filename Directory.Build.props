@@ -5,6 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- packages.lock.json is committed; CI restores with locked mode. -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <!-- Package versions below are minimums; a newer patch resolving is fine. -->
     <NoWarn>$(NoWarn);NU1603</NoWarn>
   </PropertyGroup>
