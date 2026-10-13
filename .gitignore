@@ -2,28 +2,73 @@
 bin/
 obj/
 *.user
+*.suo
 .vs/
 TestResults/
+*.trx
+coverage*.xml
+coverage*.json
+*.coverage
+artifacts/
+publish/
 
 # Terraform
+# (.terraform.lock.hcl is intentionally committed to pin provider versions)
 **/.terraform/*
 *.tfstate
 *.tfstate.*
 crash.log
+crash.*.log
 *.tfplan
+*.tfvars
+*.tfvars.json
 override.tf
 override.tf.json
+*_override.tf
+*_override.tf.json
 .terraform.tfstate.lock.info
+.terraformrc
+terraform.rc
 
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
 .venv/
+venv/
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+dist/
+build/
 eval/results/
 
 # Secrets and local config
 .env
+.env.*
+!.env.example
 *.local.json
 appsettings.Development.local.json
+*.pem
+*.key
+*.pfx
+*.p12
+*.crt
+.aws/
+credentials
+secrets.json
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
