@@ -38,11 +38,12 @@ scenarios:
     difficulty: easy
     inject:
       tfvars: { image_tag: "2026-10-12-hotfix" }
-    report: We deployed this morning and now the orders API returns 503 for every request.
+    report: We deployed a hotfix this morning and the deployment never finished. New tasks keep failing to start. What's wrong?
     ground_truth:
       root_cause: >-
         The new task definition references image tag 2026-10-12-hotfix, which does not exist in ECR.
-        Tasks stop with CannotPullContainerError, so no target is ever registered and the ALB returns 503.
+        New tasks stop with CannotPullContainerError, so the deployment never completes; the old revision
+        keeps serving traffic and the circuit breaker is off, so ECS retries forever.
       must_mention:
         - [image, tag]
         - [CannotPullContainer, not found, does not exist, pull, manifest]
