@@ -47,7 +47,7 @@ public class EcsToolsTests
                 ],
             });
 
-        var health = await _tools.DescribeService("infralens-api");
+        var health = await _tools.DescribeService("infralens-api", cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(0, health.Running);
         Assert.Equal("infralens-api:8", health.TaskDefinition);
@@ -60,8 +60,8 @@ public class EcsToolsTests
     [Fact]
     public async Task Out_of_scope_service_never_reaches_aws()
     {
-        await Assert.ThrowsAsync<McpException>(() => _tools.DescribeService("payments"));
-        await _ecs.DidNotReceiveWithAnyArgs().DescribeServicesAsync(default!, default);
+        await Assert.ThrowsAsync<McpException>(() => _tools.DescribeService("payments", cancellationToken: TestContext.Current.CancellationToken));
+        await _ecs.DidNotReceiveWithAnyArgs().DescribeServicesAsync(default!, TestContext.Current.CancellationToken);
     }
 
     [Fact]
@@ -70,6 +70,6 @@ public class EcsToolsTests
         _ecs.ListTasksAsync(Arg.Any<ListTasksRequest>(), Arg.Any<CancellationToken>())
             .Returns(new ListTasksResponse { TaskArns = [] });
 
-        Assert.Empty(await _tools.ListStoppedTasks("infralens-api"));
+        Assert.Empty(await _tools.ListStoppedTasks("infralens-api", cancellationToken: TestContext.Current.CancellationToken));
     }
 }
