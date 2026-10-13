@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using ModelContextProtocol;
 using NSubstitute;
 using Xunit;
+using Task = System.Threading.Tasks.Task;
 
 namespace InfraLens.Server.Tests;
 
