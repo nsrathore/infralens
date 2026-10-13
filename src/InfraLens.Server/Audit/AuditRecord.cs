@@ -31,5 +31,5 @@ public sealed class StderrAuditSink : IAuditSink
     };
 
     public async ValueTask WriteAsync(AuditRecord record, CancellationToken cancellationToken) =>
-        await Console.Error.WriteLineAsync("audit " + JsonSerializer.Serialize(record, Json).AsMemory(), cancellationToken);
+        await Console.Error.WriteLineAsync(("audit " + JsonSerializer.Serialize(record, Json)).AsMemory(), cancellationToken);
 }
