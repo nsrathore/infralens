@@ -38,8 +38,8 @@
       },
       "AWSSDK.Core": {
         "type": "Transitive",
-        "resolved": "4.0.102.8",
-        "contentHash": "90B9Skhl+ORbtWNXrrmGdGhGvAfZiPmZafRYrB/xHelZjePIwPvXioqz9UiiF1vo21eDLzTnXh5EC4RjbNWsFQ=="
+        "resolved": "4.0.102.10",
+        "contentHash": "ngedi+19mHnszODbUrZLtpU6JeIXVbR/MxslGZPJIcC5YVZcJSZxasnde3+0iboQj9V9bKri7b8D+TXTrOW6Aw=="
       },
       "AWSSDK.Extensions.CborProtocol": {
         "type": "Transitive",
@@ -389,6 +389,7 @@
           "AWSSDK.DynamoDBv2": "[4.0.107, )",
           "AWSSDK.ECS": "[4.0.101, )",
           "AWSSDK.Extensions.NETCore.Setup": "[4.0.101.4, )",
+          "AWSSDK.SecurityToken": "[4.0.101.3, )",
           "ModelContextProtocol.AspNetCore": "[2.2.0, )",
           "OpenTelemetry.Exporter.OpenTelemetryProtocol": "[1.17.0, )",
           "OpenTelemetry.Extensions.Hosting": "[1.17.0, )"
@@ -441,6 +442,15 @@
           "Microsoft.Extensions.Configuration.Abstractions": "2.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.0.0"
+        }
+      },
+      "AWSSDK.SecurityToken": {
+        "type": "CentralTransitive",
+        "requested": "[4.0.101.3, )",
+        "resolved": "4.0.101.3",
+        "contentHash": "m/cVTo5zzbwxMNaRyYaLnos73vgSNFW9kaZlXHBsp7wmQKK25zgQyYXNiKdlVPC4bg9Tl0P00Q1ViynS0NhzGA==",
+        "dependencies": {
+          "AWSSDK.Core": "[4.0.102.10, 5.0.0)"
         }
       },
       "ModelContextProtocol": {

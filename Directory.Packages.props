@@ -3,12 +3,11 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
-
   <ItemGroup Label="MCP">
+    <PackageVersion Include="AWSSDK.SecurityToken" Version="4.0.101.3" />
     <PackageVersion Include="ModelContextProtocol" Version="2.2.0" />
     <PackageVersion Include="ModelContextProtocol.AspNetCore" Version="2.2.0" />
   </ItemGroup>
-
   <ItemGroup Label="AWS SDK v4 (collections default to null in v4: always coalesce)">
     <PackageVersion Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.101.4" />
     <PackageVersion Include="AWSSDK.CloudWatchLogs" Version="4.0.105" />
@@ -17,14 +16,12 @@
     <PackageVersion Include="AWSSDK.SQS" Version="4.0.100" />
     <PackageVersion Include="AWSSDK.DynamoDBv2" Version="4.0.107" />
   </ItemGroup>
-
   <ItemGroup Label="Telemetry">
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
   </ItemGroup>
-
   <ItemGroup Label="Testing">
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
     <PackageVersion Include="xunit.v3" Version="3.2.2" />
