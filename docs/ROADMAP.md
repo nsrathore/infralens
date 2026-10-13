@@ -12,6 +12,7 @@ About 5–7 hours a week go to InfraLens (Thursday evening + a 3-hour Saturday b
 
 - [ ] Read the employment agreement's IP / side-project clause. Keep the repo private until it is clear.
 - [ ] Create `nsrathore/infralens`, push this skeleton, and get CI green. The C# was written against the MCP C# SDK 2.2 source but never compiled, so expect a few fixes. Then set `TreatWarningsAsErrors=true`.
+- [ ] Turn on MFA (passkey) for the Google/GitHub account used to sign in; use `aws login --profile infralens-admin` for daily CLI use.
 - [ ] `infra/bootstrap` apply: state bucket, $20 budget alarm (confirm the email), ECR repo.
 - [ ] `infra/iam` apply: `infralens-reader` role + audit table; add the `infralens-reader` profile to `~/.aws/config`.
 - [ ] `scripts/sandbox-up.sh`, then hit `/health` and `POST /orders` through the ALB. Note how long `up` takes and what the AWS bill shows next morning.
